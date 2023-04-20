@@ -11,20 +11,10 @@ enum Response {
     case success
     case duplication
     case notExist
-    case getStudent(student: Student)
-    case failure
 }
 
 class StudentsManager {
     var person: [Student] = []
-    
-    
-    func getStudent(name: String) -> Response {
-        if let student = person.filter({$0.name == name}).first {
-            return .getStudent(student: student)
-        }
-        return .failure
-    }
     
     func addStudent(name: String) -> Response {
         if !person.contains(where: {$0.name == name}) {
@@ -37,7 +27,7 @@ class StudentsManager {
     
     func removeStudent(name: String) -> Response {
         if let removeIndex = person.firstIndex(where: {$0.name == name}) {
-            let student = person.remove(at: person.distance(from: person.startIndex, to: removeIndex))
+            person.remove(at: person.distance(from: person.startIndex, to: removeIndex))
             return .success
         } else {
             return .notExist
@@ -47,14 +37,14 @@ class StudentsManager {
     func addSubject(name: String, subject: String, rating: String)->Response {
         guard let findIndex = person.firstIndex(where: {$0.name == name}) else {return .notExist}
         let personIndex = person.distance(from: person.startIndex, to: findIndex)
-        person[personIndex].credits?.updateValue(subject, forKey: rating)
+        person[personIndex].credits.updateValue(rating, forKey: subject)
         return .success
     }
     
     func removeSubject(name: String, subject: String)->Response {
         guard let findIndex = person.firstIndex(where: {$0.name == name}) else {return .notExist}
         let personIndex = person.distance(from: person.startIndex, to: findIndex)
-        person[personIndex].credits?.removeValue(forKey: subject)
+        person[personIndex].credits.removeValue(forKey: subject)
         return .success
     }
     

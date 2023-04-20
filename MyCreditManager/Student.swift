@@ -9,14 +9,18 @@ import Foundation
 
 struct Student {
     var name: String
-    var credits: [String: String]?
+    var credits: [String: String] = [:] {
+        didSet {
+            print(name, credits)
+        }
+    }
     
     init(name: String) {
         self.name = name
     }
     
     func printRating() {
-        guard let credits = credits else {return}
+        guard 0 != self.credits.count else {return}
         
         credits.forEach{
             print("\($0.key): \($0.value)")
@@ -46,7 +50,6 @@ struct Student {
             }
         }
         
-        //FIXME: 평점 소수점 2자리만 나오게 바꾸기
-        print("평점 : \(rating/Float(credits.count))")
+        print(String(format: "평점 : %.2f", rating/Float(credits.count)))
     }
 }
