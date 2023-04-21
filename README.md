@@ -1,6 +1,6 @@
-# MyCreditManager
 
-# 성적 관리 프로그램
+# 성적 관리 프로그램 (MyCreditManager)
+
 
 ## **프로젝트 이름**
 
