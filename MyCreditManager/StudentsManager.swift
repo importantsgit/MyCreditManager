@@ -8,9 +8,9 @@
 import Foundation
 
 enum Response {
-    case success
-    case duplication
-    case notExist
+    case success // 성공
+    case duplication // 학생 중복
+    case notExist // 학생 존재하지 않음
 }
 
 class StudentsManager {
@@ -51,7 +51,41 @@ class StudentsManager {
     func viewRatings(name: String)->Response {
         guard let findIndex = person.firstIndex(where: {$0.name == name}) else {return .notExist}
         let personIndex = person.distance(from: person.startIndex, to: findIndex)
-        person[personIndex].printRating()
+        printRating(student: person[personIndex])
         return .success
+    }
+    
+    private func printRating(student: Student) {
+        guard 0 != student.credits.count else {return}
+        let credits = student.credits
+        
+        credits.forEach{
+            print("\($0.key): \($0.value)")
+        }
+        var rating:Float = 0
+        credits.forEach{
+            switch $0.value {
+            case "A+":
+                rating += 4.5
+            case "A":
+                rating += 4.0
+            case "B+":
+                rating += 3.5
+            case "B":
+                rating += 3.0
+            case "C+":
+                rating += 2.5
+            case "C":
+                rating += 2.0
+            case "D+":
+                rating += 1.5
+            case "D":
+                rating += 1.0
+            case "F":
+                rating += 0
+            default:fatalError("잘못된 성적입니다.")
+            }
+        }
+        print(String(format: "평점 : %.2f", rating/Float(credits.count)))
     }
 }

@@ -7,6 +7,4 @@
 
 import Foundation
 
-print("Hello, World!")
-
 CreditManager.shared.activeMenu()

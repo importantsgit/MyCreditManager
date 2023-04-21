@@ -9,7 +9,6 @@ import Foundation
 
 open class CreditManager {
     static var shared = CreditManager()
-   
     private var studentsManager = StudentsManager()
     
     private init() {}
