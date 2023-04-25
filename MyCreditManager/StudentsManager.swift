@@ -16,6 +16,18 @@ enum Response {
 class StudentsManager {
     var person: [Student] = []
     
+    var credit:[String:Float] = [
+        "A+":4.5,
+        "A":4.0,
+        "B+":3.5,
+        "B":3.0,
+        "C+":2.5,
+        "C":2.0,
+        "D+":1.5,
+        "D":1.0,
+        "F":0.0,
+    ]
+    
     func addStudent(name: String) -> Response {
         if !person.contains(where: {$0.name == name}) {
             person.append(Student(name: name))
@@ -64,27 +76,7 @@ class StudentsManager {
         }
         var rating:Float = 0
         credits.forEach{
-            switch $0.value {
-            case "A+":
-                rating += 4.5
-            case "A":
-                rating += 4.0
-            case "B+":
-                rating += 3.5
-            case "B":
-                rating += 3.0
-            case "C+":
-                rating += 2.5
-            case "C":
-                rating += 2.0
-            case "D+":
-                rating += 1.5
-            case "D":
-                rating += 1.0
-            case "F":
-                rating += 0
-            default:fatalError("잘못된 성적입니다.")
-            }
+            rating += credit[$0.value] ?? 0
         }
         print(String(format: "평점 : %.2f", rating/Float(credits.count)))
     }

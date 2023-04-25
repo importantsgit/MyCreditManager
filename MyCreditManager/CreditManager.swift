@@ -128,6 +128,6 @@ open class CreditManager {
     }
     
     private func checkCredit(credit: String)->Bool{
-        return ["+A","A","+B","B","+C","C","+D","D","F"].contains(where: {$0 == credit})
+        return studentsManager.credit.contains(where: {$0.key == credit})
     }
 }
